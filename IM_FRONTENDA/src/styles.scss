@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+.color-titulo {
+  color: rgb(15, 114, 60);
+  text-align: center;
+}
+
+.contenedor-flex {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  height: 85vh;           /* Ajusta la altura según la ventana */
+}
+

@@ -1,0 +1,162 @@
+<div class="mt-5">
+    <h1 class="color-titulo">PROVEEDORES</h1>
+</div>
+<!-- XD -->
+<div class="card text-dark bg-light mb-3">
+    <div class="card-body">
+        <form [formGroup]="myFormFiltro">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">CORREO ELECTRONICO</label>
+                        <input formControlName="Email" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Nombre</label>
+                        <input formControlName="Nombre" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button (click)="buscarFiltro()" class="float-end btn btn-sm btn-primary "
+                        style="margin-right: 5px"> Buscar 
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button (click)="LimpiarFiltro()" class="float-end btn btn-sm btn-danger "
+                        style="margin-right: 5px"> Limpiar 
+                        <i class="fa fa-eraser"></i>
+                    </button>
+                    <button (click)="exportarLista()" class="float-end btn btn-sm btn-secondary "
+                        style="margin-right: 5px"> Exportar 
+                        <i class="fa fa-file-excel"></i> 
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="d-flex justify-content-end" style="margin-right: 20px">
+<button *ngIf="IdPerfilUsuario ==5 " (click)="btnCrear()" class="btn btn-success btn-sm">
+    <i class="fas fa-plus"></i> Nuevo Proveedor
+</button>
+</div>
+<div style="margin-bottom: 10px;"></div>
+
+
+<div *ngIf="accion == 'lista'">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <!-- <th class="color-titulo">ID PROVEEDOR</th> -->
+                <th class="color-titulo">Nombre</th>
+                <th class="color-titulo">Tipo de Documento</th>
+                <th class="color-titulo">Numero de Documento</th>
+                <th class="color-titulo">Direccion</th>
+                <th class="color-titulo">Telefono</th>
+                <th class="color-titulo">Email</th>
+                <th *ngIf="IdPerfilUsuario ==5" class="color-titulo" >ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let j of proveedors">
+                <!-- <td> {{j.proveedorId}} </td> -->
+                <td> {{j.nombre}} </td>
+                <td> {{j.tipoDocumento1}} </td>
+                <td> {{j.numeroDocumento}} </td>
+                <td> {{j.direccion}} </td>
+                <td> {{j.telefono}} </td>
+                <td> {{j.email}} </td>
+                <td *ngIf="IdPerfilUsuario ==5" class="text-center">
+
+
+                    <button (click)="btnEditar(j)" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button (click)="eliminar(j)" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination [totalItems]="totalRegistro" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"
+        [itemsPerPage]="filtroRequest.cantidad">
+    </pagination>
+</div>
+
+
+<div *ngIf="accion == 'registro'">
+    <div class="container">
+        <div class="card text-dark bg-light mb-3">
+            <!-- <div class="card-header"></div> -->
+            <div class="card-body">
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <!-- <div class="col-6">
+                            <div class="form-group">
+                                <label for="">ID</label>
+                                <input type="text" class="form-control" formControlName="proveedorId">
+                            </div>
+                        </div> -->
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Nombre</label>
+                                <input type="text" class="form-control" formControlName="nombre">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="formgroup">
+                                <label for="">Tipo de Documento</label>
+                                <select class="form-select" formControlName="tipoDocumento">
+                                    <option *ngFor="let d of tipodocumentos" [value]="d.documentoId">
+                                        {{d.codigoDocumento}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Numero de Documento</label>
+                                <input type="text" class="form-control" formControlName="numeroDocumento">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Direccion</label>
+                                <input type="text" class="form-control" formControlName="direccion">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Telefono</label>
+                                <input type="text" class="form-control" formControlName="telefono">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" formControlName="email">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button (click)="btnGuardar()" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-save"> Guardar</i>
+                                </button>
+                                <button (click)="despuesDeGuardar()" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-ban"> Cancelar</i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
